@@ -1,1 +1,15 @@
 .worktrees/
+
+# Android/Gradle build artifacts
+/app/build/
+.gradle/
+
+# Local properties
+local.properties
+
+# IDE
+.idea/
+*.iml
+
+# macOS
+.DS_Store
