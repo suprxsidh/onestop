@@ -60,6 +60,7 @@ dependencies {
 
     implementation("androidx.work:work-runtime-ktx:2.9.1")
     implementation("androidx.compose.material:material-icons-extended:1.6.8")
+    implementation("androidx.datastore:datastore-preferences:1.2.1")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.robolectric:robolectric:4.13")
