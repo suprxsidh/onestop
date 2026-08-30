@@ -11,7 +11,7 @@ All-in-one Android power-user utility app: Battery + Gestures + System Info, one
 
 ## Status
 
-- **Sub-project 1 (shell + Battery module):** design approved 2026-08-30, spec at `docs/superpowers/specs/2026-08-30-onestop-shell-design.md`, implemented 2026-08-30 (6/6 tasks done on branch `impl/onestop-shell`, not yet merged to `master`). Dashboard is functionally wired (real data via `BatteryTileMapper`, theme colors match approved palette) but does not yet pixel-match the approved mockup — no charge ring, no sparkline rendering, no custom icons; visual polish is a separate follow-up task, not yet spec'd.
+- **Sub-project 1 (shell + Battery module):** design approved 2026-08-30, spec at `docs/superpowers/specs/2026-08-30-onestop-shell-design.md`, implemented 2026-08-30 on branch `impl/onestop-shell` — all 6 tasks reviewed clean (zero Critical, no per-task Important findings). Final whole-branch review (2026-08-30) found 6 Important cross-task issues invisible at single-task scale — dark mode broken, unbounded nav back-stack, unreliable tile time-window, a spec-mandated nav test silently dropped, a spec §5 architecture violation (shared dashboard ViewModel), a possible foreground-service permission crash needing on-device confirmation. See the SDD ledger (`.superpowers/sdd/2026-08-30-onestop-shell/progress.md`) for full detail and rulings. Not yet merged to `master`, not pushed. Dashboard does not yet pixel-match the approved mockup (no charge ring, custom icons) — visual polish remains a separate follow-up, not yet spec'd.
 - **Sub-project 2 (Gestures module):** not yet spec'd.
 - **Sub-project 3 (System Info module):** not yet spec'd.
 

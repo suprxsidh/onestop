@@ -54,7 +54,8 @@ Approved mockup (light + dark): https://claude.ai/code/artifact/bd05f1ef-e3f9-4e
 ## 6. Testing
 
 - BatteryLab's existing unit tests (`calc/`, `health/` packages) migrate over verbatim — same assertions, new package/import paths.
-- New tests needed for this sub-project: the battery-detail-state → tile-projection mapping function, and dashboard tile-tap navigation.
+- New tests needed for this sub-project: the battery-detail-state → tile-projection mapping function (done — `BatteryTileMapperTest`, 7 cases).
+- **Amended post-implementation (final review, 2026-08-30):** dashboard tile-tap navigation was originally specced as a test requirement but never implemented — no `androidTest` source set exists anywhere in this project, and no Android device or emulator was available at any point during implementation to verify one would actually run. Rather than leave this silently dropped, it's explicitly descoped here: dashboard rendering and navigation are **manual-verify-only** for this sub-project. Before trusting the dashboard, install the APK on a real device and confirm: (a) the Battery tile shows live data and tapping it opens the Battery module's 5-tab screen, (b) the back button returns cleanly to the dashboard, (c) both light and dark system theme settings render correctly (this was a real bug, since fixed — see below). Adding real Compose UI test coverage (`ui-test-junit4` + `createAndroidComposeRule`) is a fair follow-up once a device/emulator is available to verify the test itself works, not before.
 
 ## 7. Per-app gesture suppression (context for future Gestures spec, not built here)
 
