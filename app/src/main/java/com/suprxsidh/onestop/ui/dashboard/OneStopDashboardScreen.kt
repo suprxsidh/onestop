@@ -15,9 +15,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.suprxsidh.onestop.battery.ui.common.LineChart
 import com.suprxsidh.onestop.battery.ui.tile.BatteryTileState
+import com.suprxsidh.onestop.gestures.ui.tile.GesturesTileState
 
 @Composable
-fun OneStopDashboardScreen(batteryTile: BatteryTileState, onOpenBattery: () -> Unit) {
+fun OneStopDashboardScreen(
+    batteryTile: BatteryTileState,
+    gesturesTile: GesturesTileState,
+    onOpenBattery: () -> Unit,
+    onOpenGestures: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -29,7 +35,7 @@ fun OneStopDashboardScreen(batteryTile: BatteryTileState, onOpenBattery: () -> U
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            PlaceholderTile(label = "Gestures", modifier = Modifier.weight(1f))
+            GesturesTile(state = gesturesTile, onClick = onOpenGestures, modifier = Modifier.weight(1f))
             PlaceholderTile(label = "System", modifier = Modifier.weight(1f))
         }
     }
@@ -55,6 +61,24 @@ private fun BatteryHeroTile(state: BatteryTileState, onClick: () -> Unit) {
                     modifier = Modifier.fillMaxWidth().height(40.dp)
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun GesturesTile(state: GesturesTileState, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    Card(
+        onClick = onClick,
+        shape = RoundedCornerShape(20.dp, 28.dp, 20.dp, 28.dp),
+        modifier = modifier
+    ) {
+        Column(modifier = Modifier.padding(14.dp)) {
+            Text("Gestures")
+            Text(if (state.enabled) "On" else "Off")
+            Text(
+                if (state.suppressedAppCount == 0) "No apps suppressed"
+                else "${state.suppressedAppCount} app${if (state.suppressedAppCount == 1) "" else "s"} suppressed"
+            )
         }
     }
 }

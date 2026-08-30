@@ -13,6 +13,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
 import com.suprxsidh.onestop.battery.data.AppDatabase
+import com.suprxsidh.onestop.gestures.data.GestureSettingsRepository
 import com.suprxsidh.onestop.ui.nav.OneStopNavHost
 import com.suprxsidh.onestop.ui.theme.OneStopTheme
 
@@ -24,13 +25,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val db = AppDatabase.getInstance(applicationContext)
+        val gestureSettingsRepository = GestureSettingsRepository(applicationContext)
         setContent {
             OneStopTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    OneStopNavHost(db)
+                    OneStopNavHost(db, gestureSettingsRepository)
                 }
             }
         }
