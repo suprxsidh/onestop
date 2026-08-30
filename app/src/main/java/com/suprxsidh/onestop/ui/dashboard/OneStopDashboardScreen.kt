@@ -11,17 +11,13 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.suprxsidh.onestop.battery.ui.common.LineChart
 import com.suprxsidh.onestop.battery.ui.tile.BatteryTileState
 
 @Composable
-fun OneStopDashboardScreen(viewModel: OneStopDashboardViewModel, onOpenBattery: () -> Unit) {
-    val batteryTile by viewModel.batteryTile.collectAsState()
-
+fun OneStopDashboardScreen(batteryTile: BatteryTileState, onOpenBattery: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
