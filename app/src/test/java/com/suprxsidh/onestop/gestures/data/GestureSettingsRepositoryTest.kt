@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -21,6 +22,14 @@ import org.robolectric.annotation.Config
 class GestureSettingsRepositoryTest {
 
     private val repository = GestureSettingsRepository(ApplicationProvider.getApplicationContext())
+
+    // The underlying DataStore file ("gesture_settings") is a fixed singleton path;
+    // Robolectric does not guarantee a fresh files directory per test method within
+    // the same class/JVM run, so state can otherwise leak between tests here and in
+    // any other test that constructs a GestureSettingsRepository against
+    // ApplicationProvider.getApplicationContext().
+    @Before
+    fun clearPersistedState() = runTest { repository.clear() }
 
     @Test
     fun `defaults are enabled with no mappings and empty blocklist`() = runTest {

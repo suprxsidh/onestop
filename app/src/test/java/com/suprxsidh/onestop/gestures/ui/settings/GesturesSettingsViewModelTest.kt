@@ -26,10 +26,14 @@ class GesturesSettingsViewModelTest {
     private lateinit var repository: GestureSettingsRepository
     private lateinit var viewModel: GesturesSettingsViewModel
 
+    // The underlying DataStore file is a fixed singleton path -- Robolectric does not
+    // guarantee a fresh files directory per test method, so state can leak between
+    // tests (here and in any other test using GestureSettingsRepository) unless cleared.
     @Before
-    fun setUp() {
+    fun setUp() = runTest {
         Dispatchers.setMain(UnconfinedTestDispatcher())
         repository = GestureSettingsRepository(ApplicationProvider.getApplicationContext())
+        repository.clear()
         viewModel = GesturesSettingsViewModel(repository)
     }
 

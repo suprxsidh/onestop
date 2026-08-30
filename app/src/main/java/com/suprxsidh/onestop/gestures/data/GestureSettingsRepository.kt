@@ -56,6 +56,10 @@ class GestureSettingsRepository(private val context: Context) {
         context.gestureSettingsDataStore.edit { it[KEY_BLOCKED_PACKAGES] = packages }
     }
 
+    suspend fun clear() {
+        context.gestureSettingsDataStore.edit { it.clear() }
+    }
+
     private fun parseAction(name: String?): GlobalActionType =
         name?.let { runCatching { GlobalActionType.valueOf(it) }.getOrNull() } ?: GlobalActionType.NONE
 }

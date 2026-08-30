@@ -22,9 +22,16 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 class GesturesTileViewModelTest {
 
+    private lateinit var repository: GestureSettingsRepository
+
+    // The underlying DataStore file is a fixed singleton path -- Robolectric does not
+    // guarantee a fresh files directory per test method, so state can leak between
+    // tests (here and in any other test using GestureSettingsRepository) unless cleared.
     @Before
-    fun setUp() {
+    fun setUp() = runTest {
         Dispatchers.setMain(UnconfinedTestDispatcher())
+        repository = GestureSettingsRepository(ApplicationProvider.getApplicationContext())
+        repository.clear()
     }
 
     @After
@@ -34,7 +41,6 @@ class GesturesTileViewModelTest {
 
     @Test
     fun `initial state reflects repository defaults`() = runTest {
-        val repository = GestureSettingsRepository(ApplicationProvider.getApplicationContext())
         val viewModel = GesturesTileViewModel(repository)
         val state = viewModel.state.first()
         assertTrue(state.enabled)
@@ -43,7 +49,6 @@ class GesturesTileViewModelTest {
 
     @Test
     fun `state reflects an updated blocklist size`() = runTest {
-        val repository = GestureSettingsRepository(ApplicationProvider.getApplicationContext())
         repository.setBlockedPackages(setOf("com.supermoney.app", "com.other.app"))
         val viewModel = GesturesTileViewModel(repository)
         val state = viewModel.state.first { it.suppressedAppCount == 2 }
