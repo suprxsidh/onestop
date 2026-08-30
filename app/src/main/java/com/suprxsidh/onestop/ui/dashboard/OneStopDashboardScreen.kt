@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -14,6 +15,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.suprxsidh.onestop.battery.ui.common.LineChart
 import com.suprxsidh.onestop.battery.ui.tile.BatteryTileState
 
 @Composable
@@ -51,6 +53,12 @@ private fun BatteryHeroTile(state: BatteryTileState, onClick: () -> Unit) {
             Text(if (state.isCharging) "Charging" else "Discharging")
             Text(state.minutesRemaining?.let { "${it / 60}h ${it % 60}m left" } ?: "-- left")
             Text(state.peakWatts?.let { "Peak %.1f W today".format(it) } ?: "")
+            if (state.sparklinePercents.size >= 2) {
+                LineChart(
+                    values = state.sparklinePercents.map { it.toFloat() },
+                    modifier = Modifier.fillMaxWidth().height(40.dp)
+                )
+            }
         }
     }
 }

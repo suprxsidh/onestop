@@ -11,12 +11,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
-private const val SPARKLINE_SAMPLE_COUNT = 40
+private const val TILE_WINDOW_MS = 24L * 60 * 60 * 1000
 
 class OneStopDashboardViewModel(db: AppDatabase) : ViewModel() {
 
     val batteryTile: StateFlow<BatteryTileState> = db.readingDao()
-        .recent(SPARKLINE_SAMPLE_COUNT)
+        .since(System.currentTimeMillis() - TILE_WINDOW_MS)
         .map { BatteryTileMapper.toBatteryTileState(it) }
         .stateIn(
             viewModelScope,

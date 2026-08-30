@@ -21,4 +21,7 @@ interface ReadingDao {
 
     @Query("SELECT * FROM readings ORDER BY ts DESC LIMIT :limit")
     fun recent(limit: Int): Flow<List<Reading>>
+
+    @Query("SELECT * FROM readings WHERE ts >= :sinceTs ORDER BY ts DESC LIMIT :limit")
+    fun since(sinceTs: Long, limit: Int = 500): kotlinx.coroutines.flow.Flow<List<Reading>>
 }
