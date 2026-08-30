@@ -11,7 +11,7 @@ All-in-one Android power-user utility app: Battery + Gestures + System Info, one
 
 ## Status
 
-- **Sub-project 1 (shell + Battery module):** design approved 2026-08-30, spec at `docs/superpowers/specs/2026-08-30-onestop-shell-design.md`, not yet implemented.
+- **Sub-project 1 (shell + Battery module):** design approved 2026-08-30, spec at `docs/superpowers/specs/2026-08-30-onestop-shell-design.md`, implemented 2026-08-30 (6/6 tasks done on branch `impl/onestop-shell`, not yet merged to `master`). Dashboard is functionally wired (real data via `BatteryTileMapper`, theme colors match approved palette) but does not yet pixel-match the approved mockup — no charge ring, no sparkline rendering, no custom icons; visual polish is a separate follow-up task, not yet spec'd.
 - **Sub-project 2 (Gestures module):** not yet spec'd.
 - **Sub-project 3 (System Info module):** not yet spec'd.
 
