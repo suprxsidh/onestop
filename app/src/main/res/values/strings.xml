@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">OneStop</string>
+    <string name="microgesture_service_label">Microgesture</string>
 </resources>
