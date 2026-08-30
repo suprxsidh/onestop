@@ -3,15 +3,17 @@ package com.suprxsidh.onestop
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.suprxsidh.onestop.battery.data.AppDatabase
+import com.suprxsidh.onestop.ui.nav.OneStopNavHost
+import com.suprxsidh.onestop.ui.theme.OneStopTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val db = AppDatabase.getInstance(applicationContext)
         setContent {
-            MaterialTheme {
-                Text("OneStop")
+            OneStopTheme {
+                OneStopNavHost(db)
             }
         }
     }
