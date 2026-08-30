@@ -18,4 +18,7 @@ interface ReadingDao {
 
     @Query("SELECT * FROM readings ORDER BY ts ASC")
     fun all(): Flow<List<Reading>>
+
+    @Query("SELECT * FROM readings ORDER BY ts DESC LIMIT :limit")
+    fun recent(limit: Int): Flow<List<Reading>>
 }
